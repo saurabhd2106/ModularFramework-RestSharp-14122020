@@ -31,7 +31,7 @@ namespace BestBuyTest.Test
         {
             requestFactory = new RequestFactory();
 
-            endpointUrl = "http://localhost:3030";
+            endpointUrl = "http://ec2-3-129-89-35.us-east-2.compute.amazonaws.com/:3030";
             productResource = "products";
 
             string currentWorkingDirectory = Environment.CurrentDirectory;
