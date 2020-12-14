@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace BestBuyTest.Test
@@ -14,6 +15,8 @@ namespace BestBuyTest.Test
 
         public string productResource;
         public string endpointUrl;
+        public string currentSolutionDirectory;
+        public string currentProjectDirectory;
 
         [ClassInitialize]
         public void PreSetup()
@@ -30,6 +33,12 @@ namespace BestBuyTest.Test
 
             endpointUrl = "http://localhost:3030";
             productResource = "products";
+
+            string currentWorkingDirectory = Environment.CurrentDirectory;
+
+            currentProjectDirectory = Directory.GetParent(currentWorkingDirectory).Parent.Parent.FullName;
+
+            currentSolutionDirectory = Directory.GetParent(currentWorkingDirectory).Parent.Parent.Parent.FullName;
 
             Console.WriteLine("Setup");
         }

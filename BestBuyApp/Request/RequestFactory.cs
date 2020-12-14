@@ -35,5 +35,38 @@ namespace BestBuyApp.Request
             return restResponse;
 
         }
+
+        public IRestResponse<DatumDTO> AddProduct(string endpointUrl, object requestPayload)
+        {
+   
+            var restRequest = new RestRequest(endpointUrl);
+            restRequest.AddJsonBody(requestPayload);
+            
+            var restResponse = restClient.SendPostRequest<DatumDTO>(restRequest,null,null);
+            
+            return restResponse;
+
+        }
+
+        public IRestResponse<DatumDTO> EditProduct(string endpointUrl, object requestPayload)
+        {
+
+            var restRequest = new RestRequest(endpointUrl);
+            restRequest.AddJsonBody(requestPayload);
+
+            var restResponse = restClient.SendPutRequest<DatumDTO>(restRequest, null, null);
+
+            return restResponse;
+
+        }
+
+        public IRestResponse DeleteProduct(string endpointUrl)
+        {
+            var restRequest = new RestRequest(endpointUrl);
+
+            var restResponse = restClient.SendDeleteRequest(restRequest);
+
+            return restResponse;
+        }
     }
 }

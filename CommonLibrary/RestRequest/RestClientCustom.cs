@@ -80,36 +80,74 @@ namespace CommonLibrary.RestRequest
             return restClient.Get<T>(restRequest);
         }
 
-        public IRestResponse SendPostRequest(IRestRequest restRequest, object requestPayload)
+        public IRestResponse SendPostRequest(IRestRequest restRequest)
         {
             return restClient.Post(restRequest);
         }
 
-        public IRestResponse<T> SendPostRequest<T>(IRestRequest restRequest, object requestPayload)
+        public IRestResponse<T> SendPostRequest<T>(IRestRequest restRequest)
         {
             return restClient.Post<T>(restRequest);
         }
 
+        public IRestResponse<T> SendPostRequest<T>(IRestRequest restRequest, Dictionary<string, object> queryParameter, Dictionary<string, string> headers)
+        {
+            addQueryParametersToRestRequest(restRequest, queryParameter);
 
-        public IRestResponse SendPutRequest(IRestRequest restRequest, object requestPayload)
+            addHeadersToRestRequest(restRequest, headers);
+
+       
+            return restClient.Post<T>(restRequest);
+        }
+
+       
+
+        public IRestResponse SendPutRequest(IRestRequest restRequest)
         {
             return restClient.Put(restRequest);
         }
 
-        public IRestResponse<T> SendPutRequest<T>(IRestRequest restRequest, object requestPayload)
+        public IRestResponse<T> SendPutRequest<T>(IRestRequest restRequest, Dictionary<string, object> queryParameter, Dictionary<string, string> headers)
         {
+            addQueryParametersToRestRequest(restRequest, queryParameter);
+            addHeadersToRestRequest(restRequest, headers);
+
             return restClient.Put<T>(restRequest);
         }
 
 
-        public IRestResponse SendDeleteRequest(IRestRequest restRequest, object requestPayload)
+        public IRestResponse SendDeleteRequest(IRestRequest restRequest)
         {
-            return restClient.Delete(restRequest);
+            IRestResponse restResponse = restClient.Delete(restRequest);
+            return restResponse;
         }
 
-        public IRestResponse<T> SendDeleteRequest<T>(IRestRequest restRequest, object requestPayload)
+        public IRestResponse<T> SendDeleteRequest<T>(IRestRequest restRequest)
         {
             return restClient.Delete<T>(restRequest);
+        }
+
+        private void addQueryParametersToRestRequest(IRestRequest restRequest, Dictionary<string, object> queryParameter)
+        {
+            if (queryParameter != null)
+            {
+                foreach (var param in queryParameter)
+                {
+                    restRequest.AddParameter(param.Key, param.Value);
+                }
+            }
+
+        }
+
+        private void addHeadersToRestRequest(IRestRequest restRequest, Dictionary<string, string> headers)
+        {
+            if (headers != null)
+            {
+                foreach (var param in headers)
+                {
+                    restRequest.AddHeader(param.Key, param.Value);
+                }
+            }
         }
 
     }
