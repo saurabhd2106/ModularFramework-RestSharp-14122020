@@ -1,4 +1,7 @@
-﻿using BestBuyApp.Request;
+﻿using AventStack.ExtentReports;
+using BestBuyApp.Request;
+using CommonLibrary.Utils;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -11,28 +14,19 @@ namespace BestBuyTest.Test
     public class BaseTest
     {
         public RequestFactory requestFactory;
-
-
         public string productResource;
         public string endpointUrl;
-        public string currentSolutionDirectory;
-        public string currentProjectDirectory;
+        public static string currentSolutionDirectory;
+        public static string currentProjectDirectory;
+        static IConfiguration Configuration;
 
-        [ClassInitialize]
-        public void PreSetup()
+        public static ExtentReportUtils reportUtils;
+
+        [AssemblyInitialize]
+        public static void PreSetup(TestContext context)
         {
             
-
-
-        }
-
-        [TestInitialize]
-        public void Setup()
-        {
-            requestFactory = new RequestFactory();
-
-            endpointUrl = "http://localhost:3030";
-            productResource = "products";
+            Console.WriteLine("Pre Setup");
 
             string currentWorkingDirectory = Environment.CurrentDirectory;
 
@@ -40,18 +34,37 @@ namespace BestBuyTest.Test
 
             currentSolutionDirectory = Directory.GetParent(currentWorkingDirectory).Parent.Parent.Parent.FullName;
 
+            Configuration = new ConfigurationBuilder().AddJsonFile(currentProjectDirectory + "/appSettings.json").Build();
+
+            string reportFilename = $"{currentProjectDirectory}/Reports/restSharp-report.html";
+
+            reportUtils = new ExtentReportUtils(reportFilename);
+        }
+
+        [TestInitialize]
+        public void Setup()
+        {
+          //  reportUtils.CreateTestcase("Pre-Requisite");
+
+            string server = Configuration["environment:server"];
+            int portNumber = int.Parse(Configuration["environment:portNumber"]);
+
+          //  reportUtils.AddLogs(Status.Info, $"Executing test cases on server : {server} and port number : {portNumber}");
+            endpointUrl = $"http://{server}:{portNumber}";
+
+            requestFactory = new RequestFactory();
+
+            productResource = "products";
             Console.WriteLine("Setup");
         }
 
-        [TestCleanup]
-        public void Cleanup()
-        {
-            Console.WriteLine("Cleanup");
-        }
+        
 
-        [ClassCleanup]
-        public void PostCleanup()
+        [AssemblyCleanup]
+        public static void PostCleanup()
         {
+            reportUtils.DisposeExtentReport();
+
             Console.WriteLine("Post-Cleanup");
         }
     }

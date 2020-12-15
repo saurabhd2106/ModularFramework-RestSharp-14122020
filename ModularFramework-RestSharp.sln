@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestBuyTest", "BestBuyTest\BestBuyTest.csproj", "{E3C7A2FE-2671-42BE-ACC1-7D288B848179}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestBuyTest", "BestBuyTest\BestBuyTest.csproj", "{E3C7A2FE-2671-42BE-ACC1-7D288B848179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{68B627C3-DE10-4797-9475-A503642D1106}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLibrary", "CommonLibrary\CommonLibrary.csproj", "{68B627C3-DE10-4797-9475-A503642D1106}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BestBuyApp", "BestBuyApp\BestBuyApp.csproj", "{411A561E-A38C-431A-977F-8AD1A707E490}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BestBuyApp", "BestBuyApp\BestBuyApp.csproj", "{411A561E-A38C-431A-977F-8AD1A707E490}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notes", "Notes", "{13B68718-1614-46DC-9A10-BEB2F7745858}"
+	ProjectSection(SolutionItems) = preProject
+		AssertionInMSTest.txt = AssertionInMSTest.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

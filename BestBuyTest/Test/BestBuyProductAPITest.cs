@@ -1,4 +1,5 @@
-﻿using BestBuyApp.Model;
+﻿using AventStack.ExtentReports;
+using BestBuyApp.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 using System;
@@ -16,15 +17,21 @@ namespace BestBuyTest.Test
         [TestMethod]
         public void VerifyGetProductAPI()
         {
+            reportUtils.CreateTestcase("Verify Get Product API - Test");
+
             IRestResponse restResponse = requestFactory.GetAllProduct($"{endpointUrl}/{productResource}");
 
+            reportUtils.AddLogs(Status.Info, $"Resposne Status Code : {restResponse.StatusCode} \n" +
+                $"Content : {restResponse.Content}");
+
             Assert.AreEqual(HttpStatusCode.OK, restResponse.StatusCode);
-            
+
         }
 
         [TestMethod]
         public void VerifyGetProductAPIWithQueryParam()
         {
+            reportUtils.CreateTestcase("Verify Get Product API with query parameter- Test");
 
             Dictionary<string, object> allQueryParam = new Dictionary<string, object>();
 
@@ -34,6 +41,9 @@ namespace BestBuyTest.Test
             string productEndpointUrl = $"{endpointUrl}/{productResource}";
 
             var restResponse = requestFactory.GetAllProduct(productEndpointUrl, allQueryParam);
+
+            reportUtils.AddLogs(Status.Info, $"Resposne Status Code : {restResponse.StatusCode} \n" +
+                $"Content : {restResponse.Content}");
 
             Assert.AreEqual(HttpStatusCode.OK, restResponse.StatusCode);
 
