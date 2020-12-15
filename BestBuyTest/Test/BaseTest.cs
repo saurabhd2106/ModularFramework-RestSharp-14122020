@@ -22,6 +22,8 @@ namespace BestBuyTest.Test
 
         public static ExtentReportUtils reportUtils;
 
+        public TestContext TestContext { get; set; }
+
         [AssemblyInitialize]
         public static void PreSetup(TestContext context)
         {
@@ -46,19 +48,32 @@ namespace BestBuyTest.Test
         {
             requestFactory = new RequestFactory();
 
-            endpointUrl = "http://localhost:3030";
             productResource = "products";
 
             string server = Configuration["environment:server"];
             int portNumber = int.Parse(Configuration["environment:portNumber"]);
 
           //  reportUtils.AddLogs(Status.Info, $"Executing test cases on server : {server} and port number : {portNumber}");
-            endpointUrl = $"http://{server}:{portNumber}";
+            endpointUrl = "http://ec2-3-129-89-35.us-east-2.compute.amazonaws.com:3030";
 
             requestFactory = new RequestFactory();
 
             productResource = "products";
             Console.WriteLine("Setup");
+        }
+
+        [TestCleanup]
+        public void PostTestExecution()
+        {
+         if(TestContext.CurrentTestOutcome == UnitTestOutcome.Failed)
+            {
+                reportUtils.AddLogs(Status.Fail, "One or more step failed");
+            }
+         else if(TestContext.CurrentTestOutcome == UnitTestOutcome.Aborted)
+            {
+                reportUtils.AddLogs(Status.Skip, "Test case aborted for some reason");
+            }
+
         }
 
         
