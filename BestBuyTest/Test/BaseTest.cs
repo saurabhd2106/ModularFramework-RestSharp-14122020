@@ -44,7 +44,10 @@ namespace BestBuyTest.Test
         [TestInitialize]
         public void Setup()
         {
-          //  reportUtils.CreateTestcase("Pre-Requisite");
+            requestFactory = new RequestFactory();
+
+            endpointUrl = "http://localhost:3030";
+            productResource = "products";
 
             string server = Configuration["environment:server"];
             int portNumber = int.Parse(Configuration["environment:portNumber"]);
