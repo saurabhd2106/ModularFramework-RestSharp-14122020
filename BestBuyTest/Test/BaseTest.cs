@@ -24,7 +24,7 @@ namespace BestBuyTest.Test
 
         public TestContext TestContext { get; set; }
 
-        [AssemblyInitialize]
+     //   [AssemblyInitialize]
         public static void PreSetup(TestContext context)
         {
             
@@ -54,7 +54,7 @@ namespace BestBuyTest.Test
             int portNumber = int.Parse(Configuration["environment:portNumber"]);
 
           //  reportUtils.AddLogs(Status.Info, $"Executing test cases on server : {server} and port number : {portNumber}");
-            endpointUrl = "http://ec2-3-129-89-35.us-east-2.compute.amazonaws.com:3030";
+            endpointUrl = $"http://{server}:{portNumber}";
 
             requestFactory = new RequestFactory();
 
